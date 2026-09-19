@@ -24,7 +24,7 @@ export default async function HomePage() {
             </h1>
             <p className="mt-6 max-w-md text-white/70">
               The latest drops, exclusives and reissued classics. Trainers built
-              to last, delivered fast — checkout secured by Paystack.
+              to last and delivered fast, with a secure checkout.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link href="#catalogue" className="btn-primary bg-accent hover:bg-paper hover:text-ink">

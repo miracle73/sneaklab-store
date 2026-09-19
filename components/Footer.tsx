@@ -45,9 +45,8 @@ export function Footer() {
         ))}
       </div>
       <div className="border-t border-white/10">
-        <div className="container-wrap flex flex-col items-center justify-between gap-2 py-6 text-xs text-white/50 sm:flex-row">
+        <div className="container-wrap flex items-center justify-center py-6 text-xs text-white/50">
           <span>© {new Date().getFullYear()} size? demo. Not affiliated with size?.</span>
-          <span>Payments secured by Paystack · Test mode</span>
         </div>
       </div>
     </footer>
