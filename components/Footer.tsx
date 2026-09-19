@@ -3,15 +3,32 @@ import Link from "next/link";
 const COLUMNS = [
   {
     title: "Shop",
-    links: ["New In", "Trainers", "Clothing", "Accessories", "Sale"],
+    links: [
+      { label: "New In", href: "/" },
+      { label: "Trainers", href: "/#catalogue" },
+      { label: "Brands", href: "/#brands" },
+      { label: "Sale", href: "/#catalogue" },
+      { label: "Your Bag", href: "/cart" },
+    ],
   },
   {
     title: "Help",
-    links: ["Delivery", "Returns", "Size Guide", "Track Order", "Contact"],
+    links: [
+      { label: "Delivery", href: "/#catalogue" },
+      { label: "Returns", href: "/#catalogue" },
+      { label: "Size Guide", href: "/#catalogue" },
+      { label: "Track Order", href: "/cart" },
+      { label: "Contact", href: "/#catalogue" },
+    ],
   },
   {
     title: "About",
-    links: ["Our Story", "Careers", "Sustainability", "Press"],
+    links: [
+      { label: "Our Story", href: "/#brands" },
+      { label: "Careers", href: "/#brands" },
+      { label: "Sustainability", href: "/#brands" },
+      { label: "Press", href: "/#brands" },
+    ],
   },
 ];
 
@@ -34,10 +51,13 @@ export function Footer() {
             <h3 className="eyebrow text-white/70">{col.title}</h3>
             <ul className="mt-4 space-y-2">
               {col.links.map((link) => (
-                <li key={link}>
-                  <span className="cursor-default text-sm text-white/70 transition-colors hover:text-white">
-                    {link}
-                  </span>
+                <li key={link.label}>
+                  <Link
+                    href={link.href}
+                    className="text-sm text-white/70 transition-colors hover:text-white"
+                  >
+                    {link.label}
+                  </Link>
                 </li>
               ))}
             </ul>

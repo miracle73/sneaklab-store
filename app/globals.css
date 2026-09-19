@@ -10,6 +10,12 @@
 html {
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  scroll-behavior: smooth;
+}
+
+/* Offset anchor targets so they aren't hidden under the sticky header. */
+[id] {
+  scroll-margin-top: 6rem;
 }
 
 body {
