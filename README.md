@@ -4,7 +4,7 @@ A production-style e-commerce storefront built to prove a **correct, verifiable 
 
 UI and product imagery are modelled on [size.co.uk](https://www.size.co.uk).
 
-> **Live demo:** _add your Vercel URL here after deploying_
+> **Live demo:** https://sneaklab-store.vercel.app
 
 ---
 
