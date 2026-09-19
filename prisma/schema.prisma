@@ -1,0 +1,76 @@
+// Prisma schema — PostgreSQL (Neon)
+// Docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  // Pooled connection string (Neon pgBouncer) used at runtime.
+  url       = env("DATABASE_URL")
+  // Direct (unpooled) connection used for migrations. Falls back handled in README.
+  directUrl = env("DIRECT_URL")
+}
+
+enum OrderStatus {
+  pending
+  paid
+  failed
+}
+
+model Product {
+  id          String      @id @default(cuid())
+  slug        String      @unique
+  name        String
+  description String
+  priceKobo   Int
+  imageUrl    String
+  images      String[]    @default([])
+  brand       String?
+  category    String      @default("sneakers")
+  stock       Int         @default(0)
+  createdAt   DateTime    @default(now())
+  orderItems  OrderItem[]
+
+  @@index([category])
+}
+
+model Order {
+  id         String      @id @default(cuid())
+  reference  String      @unique
+  email      String
+  amountKobo Int
+  status     OrderStatus @default(pending)
+  // Shipping snapshot captured at checkout.
+  fullName   String?
+  address    String?
+  city       String?
+  state      String?
+  phone      String?
+  createdAt  DateTime    @default(now())
+  paidAt     DateTime?
+  items      OrderItem[]
+
+  @@index([status])
+}
+
+model OrderItem {
+  id            String  @id @default(cuid())
+  orderId       String
+  productId     String
+  quantity      Int
+  unitPriceKobo Int
+  order         Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  product       Product @relation(fields: [productId], references: [id])
+
+  @@index([orderId])
+}
+
+// Idempotency ledger for Paystack webhook deliveries.
+// The unique constraint on paystackEventId is the dedupe mechanism.
+model WebhookEvent {
+  id              String   @id @default(cuid())
+  paystackEventId String   @unique
+  receivedAt      DateTime @default(now())
+}
