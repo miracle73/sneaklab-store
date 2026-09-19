@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import { useCart, selectCount } from "@/store/cart";
 import { useHasMounted } from "@/hooks/useHasMounted";
@@ -13,6 +14,7 @@ const NAV = [
 export function Header() {
   const mounted = useHasMounted();
   const count = useCart(selectCount);
+  const [open, setOpen] = useState(false);
 
   return (
     <header className="sticky top-0 z-40 border-b border-line bg-paper/95 backdrop-blur">
@@ -24,12 +26,38 @@ export function Header() {
       </div>
 
       <div className="container-wrap flex h-16 items-center justify-between gap-4">
-        <Link href="/" className="flex items-center gap-1" aria-label="size? home">
-          <span className="font-display text-3xl leading-none tracking-tight text-ink">
-            size
-          </span>
-          <span className="font-display text-3xl leading-none text-accent">?</span>
-        </Link>
+        <div className="flex items-center gap-2">
+          {/* Hamburger (mobile only) */}
+          <button
+            type="button"
+            onClick={() => setOpen((v) => !v)}
+            className="-ml-1 inline-flex h-10 w-10 items-center justify-center md:hidden"
+            aria-label={open ? "Close menu" : "Open menu"}
+            aria-expanded={open}
+          >
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden>
+              {open ? (
+                <>
+                  <path d="M18 6 6 18" />
+                  <path d="m6 6 12 12" />
+                </>
+              ) : (
+                <>
+                  <path d="M3 12h18" />
+                  <path d="M3 6h18" />
+                  <path d="M3 18h18" />
+                </>
+              )}
+            </svg>
+          </button>
+
+          <Link href="/" className="flex items-center gap-1" aria-label="size? home" onClick={() => setOpen(false)}>
+            <span className="font-display text-3xl leading-none tracking-tight text-ink">
+              size
+            </span>
+            <span className="font-display text-3xl leading-none text-accent">?</span>
+          </Link>
+        </div>
 
         <nav className="hidden items-center gap-8 md:flex">
           {NAV.map((item) => (
@@ -45,6 +73,7 @@ export function Header() {
 
         <Link
           href="/cart"
+          onClick={() => setOpen(false)}
           className="group relative inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-wide text-ink transition-colors hover:text-accent"
           aria-label={`Cart, ${mounted ? count : 0} items`}
         >
@@ -71,6 +100,31 @@ export function Header() {
           )}
         </Link>
       </div>
+
+      {/* Mobile nav panel */}
+      {open && (
+        <nav className="border-t border-line bg-paper md:hidden">
+          <div className="container-wrap flex flex-col py-2">
+            {NAV.map((item) => (
+              <Link
+                key={item.label}
+                href={item.href}
+                onClick={() => setOpen(false)}
+                className="border-b border-line py-3 text-sm font-semibold uppercase tracking-wide text-ink last:border-0 hover:text-accent"
+              >
+                {item.label}
+              </Link>
+            ))}
+            <Link
+              href="/cart"
+              onClick={() => setOpen(false)}
+              className="py-3 text-sm font-semibold uppercase tracking-wide text-ink hover:text-accent"
+            >
+              Your Bag
+            </Link>
+          </div>
+        </nav>
+      )}
     </header>
   );
 }
