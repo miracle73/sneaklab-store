@@ -8,7 +8,6 @@ const NAV = [
   { label: "New In", href: "/" },
   { label: "Trainers", href: "/#catalogue" },
   { label: "Brands", href: "/#brands" },
-  { label: "Sale", href: "/#catalogue" },
 ];
 
 export function Header() {
@@ -20,7 +19,7 @@ export function Header() {
       {/* Promo strip */}
       <div className="bg-ink text-center text-[11px] font-semibold uppercase tracking-[0.18em] text-paper">
         <div className="container-wrap py-2">
-          Free delivery on orders over ₦200,000 · Pay securely with Paystack
+          Free delivery on orders over ₦200,000
         </div>
       </div>
 

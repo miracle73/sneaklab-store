@@ -7,27 +7,7 @@ const COLUMNS = [
       { label: "New In", href: "/" },
       { label: "Trainers", href: "/#catalogue" },
       { label: "Brands", href: "/#brands" },
-      { label: "Sale", href: "/#catalogue" },
       { label: "Your Bag", href: "/cart" },
-    ],
-  },
-  {
-    title: "Help",
-    links: [
-      { label: "Delivery", href: "/#catalogue" },
-      { label: "Returns", href: "/#catalogue" },
-      { label: "Size Guide", href: "/#catalogue" },
-      { label: "Track Order", href: "/cart" },
-      { label: "Contact", href: "/#catalogue" },
-    ],
-  },
-  {
-    title: "About",
-    links: [
-      { label: "Our Story", href: "/#brands" },
-      { label: "Careers", href: "/#brands" },
-      { label: "Sustainability", href: "/#brands" },
-      { label: "Press", href: "/#brands" },
     ],
   },
 ];
@@ -35,8 +15,8 @@ const COLUMNS = [
 export function Footer() {
   return (
     <footer className="mt-20 border-t border-line bg-ink text-paper">
-      <div className="container-wrap grid grid-cols-2 gap-8 py-12 md:grid-cols-4">
-        <div className="col-span-2 md:col-span-1">
+      <div className="container-wrap flex flex-col justify-between gap-8 py-12 sm:flex-row">
+        <div>
           <Link href="/" className="flex items-center gap-1">
             <span className="font-display text-3xl leading-none">size</span>
             <span className="font-display text-3xl leading-none text-accent">?</span>
